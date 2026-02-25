@@ -6,13 +6,14 @@ class SecurePlant:
 
     def plant_created(self):
         """
-        Este método es solo para mostrar que la plata se ha creado.
+        Este método es solo para mostrar que la planta se ha creado.
         """
         return f"Plant created: {self.name}"
-    
+
     def set_height(self, new_heigh):
         if new_heigh < 0:
-            print(f"Invalid operation attempted: height {new_heigh}cm [REJECED]")
+            print(f"Invalid operation attempted:"
+                  f"height {new_heigh}cm [REJECED]")
             print("Security: Negative height rejected")
         else:
             self.__height = new_heigh
@@ -32,13 +33,17 @@ class SecurePlant:
     def get_age(self):
         return self.__age
 
+
 def main():
     Rose = SecurePlant("Rose", 25, 30)
     print(Rose.plant_created())
     Rose.set_height(25)
     Rose.set_age(30)
-    print(f"Current plant: {Rose.name} ({Rose.get_height()}cm, {Rose.get_age()} days)")
-    #print(f"Altura de {Rose.name}: {Rose.__age}") # esta escondido, solo se puede llamar con get.
+    print(f"Current plant: {Rose.name} ({Rose.get_height()}cm, "
+          f"{Rose.get_age()} days)")
+    # print(f"Altura de {Rose.name}: {Rose.__age}") está escondido, solo se
+    # puede llamar con get.
+
 
 if __name__ == "__main__":
     main()

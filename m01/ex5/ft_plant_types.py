@@ -1,58 +1,52 @@
 class Plant:
-    def __init__(self, name:str, age: int, height: int) ->None
+    def __init__(self, name:str, age: int, height: int):
         self.name = name
-        self.__age = 0
-        self.__height = 0
-
-    def set_height(self, new_heigh):
-        if new_heigh < 0:
-            print(f"Invalid operation attempted: height {new_heigh}cm [REJECED]")
-            print("Security: Negative height rejected")
-        else:
-            self.__height = new_heigh
-            print(f"Height updated: {self.__height}cm [OK]")
-
-    def set_age(self, new_age):
-        if new_age < 0:
-            print(f"Invalid operation attempted: age {new_age} days [REJECED]")
-            print("Security: Negative age rejected")
-        else:
-            self.__age = new_age
-            print(f"Age updated: {self.__age} days [OK]")
-
-    def get_height(self):
-        return self.__height
-
-    def get_age(self):
-        return self.__age
+        self.age = age
+        self.height = height
 
 class Flower(Plant):
     def __init__(self, name, age, height, color: str):
-        super().__init(name, age, height)
+        super().__init__(name, age, height)
         self.color = color
+        self.is_bloom = False
 
-    def bloom(self, bloom):
-        bloom = false
+    def bloom(self):
+        if not self.is_bloom:
+            self.is_bloom = True
+            return f"{self.name} is blooming beautifully!"
+        return f"{self.name} has already bloomed."
+        
 
 class Tree(Plant):
     def __init__(self, name, age, height, trunk_diameter: int):
-        super().__init(name, age, height)
+        super().__init__(name, age, height)
         self.trunk_diameter = trunk_diameter
+        self.shade_produced = 0
 
-    def produce_shade(slef, trunk_diameter, shade):
-        self.shade = trunk_diameter * 1.56
+    def produce_shade(self):
+        shade = round(self.trunk_diameter * 1.56)
+        return f"{self.name} provides {shade} square meters of shade"
 
 class Vegetable(Plant):
-    def __init__(self, name, age, height, harvest_season):
-        super().__init(name, age, height)
+    def __init__(self, name, age, height, harvest_season, nutritional_value):
+        super().__init__(name, age, height)
         self.harvest_season = harvest_season
-
-    def nutritional_value(self, nutritional_value):
         self.nutritional_value = nutritional_value
 
 def main():
-    Rose = Flower("Rose", 25, 30, "red")
-    Oak = Tree("Oak", 500, 1825, 50)
-    Tomato = Vegetable("Tomato", 80, 90, "summer harvest")
-    Rose.bloom = true
-    Tomato.nutritional_value = "rich in vitamin C"
+    rose = Flower("Rose", 25, 30, "red")
+    oak = Tree("Oak", 500, 1825, 50)
+    tomato = Vegetable("Tomato", 80, 90, "summer", "rich in vitamin C")
+    print("=== Garden Plant Types ===\n")
+    print(f"{rose.name} ({type(rose).__name__}), {rose.height}cm, {rose.age} days, "
+          f"{rose.color} color")
+    print(f"{rose.bloom()}\n")
+    print(f"{oak.name} ({type(oak).__name__}), {oak.height}cm, {oak.age} days, "
+          f"{oak.trunk_diameter}cm diameter")
+    print(f"{oak.produce_shade()}\n")
+    print(f"{tomato.name} ({type(tomato).__name__}), {tomato.height}cm, {tomato.age} days, "
+          f"{tomato.harvest_season} harvest")
+    print(f"Tomato is {tomato.nutritional_value}")
+
+if __name__ == "__main__":
+    main()

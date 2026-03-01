@@ -1,4 +1,8 @@
 def check_temperature(temp_str: str) -> int:
+    """
+    Checks if the temperature input is valid and
+    within the acceptable range for plants.
+    """
     try:
         temp = int(temp_str)
     except ValueError:
@@ -16,6 +20,9 @@ def check_temperature(temp_str: str) -> int:
 
 
 def test_temperature_input() -> None:
+    """"
+    Tests the check_temperature function with various inputs.
+    """
     print("Testing temperature: 25")
     check_temperature("25")
     print("Testing temperature: abc")

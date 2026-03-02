@@ -1,3 +1,37 @@
+class GardenManager:
+    def __init__(self):
+        self.garden_list = {}
+
+    def add_garden(self, garden):
+        """
+        This method adds gardens to the dictionary
+        """
+        name = garden.owner
+        # Guarda el jardín que entre con la clave [name]
+        self.garden_list[name] = garden
+
+    def create_garden_network(self, garden_list):
+        """
+        Este método debería hacer un network de jardines
+        """
+    @classmethod
+        def create_garden_network
+class GardenStats(GardenManager):
+    """
+    Calcula métricas sobre los jardines gestionados
+    """
+    
+
+class Garden:
+    def __init__(self, owner_name):
+        self.owner = owner_name
+        self.plants_list = []
+
+    def add_plant(self, plant):
+        self.plants_list.append(plant) # append se usa para agregar a la lista de plantas en garden
+
+
+
 class Plant:
     def __init__(self, name: str, height: int):
         self.name = name
@@ -28,37 +62,6 @@ class PrizeFlower(FloweringPlant):
         """
         if self.name == "Sunflower" and self.height > 0:
             self.points = 10
-
-class GardenManager:
-    def __init__(self):
-        self.garden_list = {}
-
-    def add_garden(self, garden):
-        """
-        Este método añade jardines al diccionario
-        """
-        name = garden.owner
-        # Guarda el jardín que entre con la clave [name]
-        self.garden_list[name] = garden
-
-    def create_garden_network(self, garden_list):
-        """
-        Este método debería hacer un network de jardines
-        """
-    
-class GardenStats(GardenManager):
-    """
-    Calcula métricas sobre los jardines gestionados
-    """
-    
-
-class Garden:
-    def __init__(self, owner_name):
-        self.owner = owner_name
-        self.plants_list = []
-
-    def add_plant(self, plant):
-        self.plants_list.append(plant) # append se usa para agregar a la lista de plantas en garden
 
 
 def main():

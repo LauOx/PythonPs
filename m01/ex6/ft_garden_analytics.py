@@ -82,6 +82,9 @@ class Garden:
 
 class GardenManager:
     def __init__(self):
+        """
+        Initializes GardenManager
+        """
         self.my_gardens = {}
         self.count = 0
 

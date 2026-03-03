@@ -3,16 +3,25 @@ class Plant:
         self.name = name
         self.height = height
         self.age = age
-    
-    def grow(self, days: int):
-        self.age += days - 1 
+
+    def grow(self, days: int) -> None:
+        """
+        Calculates growth and days passing
+        """
+        self.age += days - 1
         self.height += days - 1
 
-    def get_info(self):
+    def get_info(self) -> None:
+        """
+        Shows plant info
+        """
         print(f"{self.name}: {self.height}cm, {self.age} days old")
-        
+
 
 def main():
+    """
+    Run as main funcion
+    """
     garden = [
         Plant("Rose", 25, 30),
         Plant("Sunflower", 80, 45),

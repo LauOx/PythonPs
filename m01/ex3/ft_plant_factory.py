@@ -1,15 +1,21 @@
 class Plant:
-    def __init__(self, name, height, age):
+    def __init__(self, name: str, height: int, age: int):
         self.name = name
         self.height = height
         self.age = age
-    
-    def print_plant(self):
+
+    def print_plant(self) -> str:
+        """
+        This method just show a message
+        """
         return f"created: {self.name} ({self.height}cm, {self.age} days)"
 
 
 def main():
-    # Here is where the object is created
+    """
+    Runs as main function
+    Here is where the object is created
+    """
     garden = [
         Plant("Rose", 25, 30),
         Plant("Oak", 200, 365),

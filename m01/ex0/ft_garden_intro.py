@@ -1,4 +1,7 @@
 def main():
+    """
+    Runs as main function
+    """
     name = "Rose"
     height = "25cm"
     age = "30 days"

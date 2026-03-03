@@ -6,6 +6,9 @@ class Plant:
 
 
 def main():
+    """
+    Runs as main function
+    """
     garden = [
         Plant("Rose", 25, 30),
         Plant("Sunflower", 80, 45),

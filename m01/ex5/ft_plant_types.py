@@ -1,17 +1,20 @@
 class Plant:
-    def __init__(self, name: str, age: int, height: int):
+    def __init__(self, name: str, height: int, age: int):
         self.name = name
         self.age = age
         self.height = height
 
 
 class Flower(Plant):
-    def __init__(self, name, age, height, color: str):
+    def __init__(self, name: str, age: int, height: int, color: str):
         super().__init__(name, age, height)
         self.color = color
         self.is_bloom = False
 
-    def bloom(self):
+    def bloom(self) -> str:
+        """
+        Changes is_bloom status
+        """
         if not self.is_bloom:
             self.is_bloom = True
             return f"{self.name} is blooming beautifully!"
@@ -19,25 +22,31 @@ class Flower(Plant):
 
 
 class Tree(Plant):
-    def __init__(self, name, age, height, trunk_diameter: int):
+    def __init__(self, name: str, age: int, height: int, trunk_diameter: int):
         super().__init__(name, age, height)
         self.trunk_diameter = trunk_diameter
         self.shade_produced = 0
 
-    def produce_shade(self):
+    def produce_shade(self) -> str:
+        """
+        Calculates shade produced by the tree
+        """
         shade = round(self.trunk_diameter * 1.56)
         return f"{self.name} provides {shade} square meters of shade"
 
 
 class Vegetable(Plant):
-    def __init__(self, name, age, height, harvest_season: str,
-                 nutritional_value: str):
+    def __init__(self, name: str, age: int, height: int, harvest_season: str,
+                 nutritional_value: str) -> None:
         super().__init__(name, age, height)
         self.harvest_season = harvest_season
         self.nutritional_value = nutritional_value
 
 
-def main():
+def main() -> None:
+    """
+    Runs as main function
+    """
     rose = Flower("Rose", 25, 30, "red")
     oak = Tree("Oak", 500, 1825, 50)
     tomato = Vegetable("Tomato", 80, 90, "summer", "rich in vitamin C")

@@ -2,7 +2,10 @@ from typing import Dict
 
 
 class Plant:
-    def __init__(self, name: str, height: int):
+    def __init__(self, name: str, height: int) -> None:
+        """
+        Initializes Plant with name and height
+        """
         self.name = name
         self.height = height
         self.last_growth = 0
@@ -12,7 +15,11 @@ class Plant:
 
 
 class FloweringPlant(Plant):
-    def __init__(self, name: str, height: int, color: str):
+    def __init__(self, name: str, height: int, color: str) -> None:
+        """
+        Initializes FloweringPlant with name, height
+        (inherited from Plant), and color
+        """
         super().__init__(name, height)
         self.color = color
         self.is_bloom = False
@@ -28,7 +35,11 @@ class FloweringPlant(Plant):
 
 
 class PrizeFlower(FloweringPlant):
-    def __init__(self, name: str, height: int, color: str):
+    def __init__(self, name: str, height: int, color: str) -> None:
+        """
+        Initializes PrizeFlower with name, height and color
+        (inherited from FloweringPlant)
+        """
         super().__init__(name, height, color)
         self.points = 0
 
@@ -46,7 +57,7 @@ class Garden:
         self.plant_list = []
         self.score = 0
 
-    def add_plant(self, plant):
+    def add_plant(self, plant: Plant):
         """
         Adds plant to the plant_list (with append)
         """
@@ -74,7 +85,7 @@ class GardenManager:
         self.my_gardens = {}
         self.count = 0
 
-    def add_garden(self, garden: str) -> None:
+    def add_garden(self, garden: Garden) -> None:
         """
         Adds gardens to the dictionary my_gardens
         """
@@ -82,7 +93,7 @@ class GardenManager:
         self.my_gardens[name] = garden
         self.count += 1
 
-    def grow_all_plants(self, garden: str, cm: int) -> None:
+    def grow_all_plants(self, garden: Garden, cm: int) -> None:
         """
         Makes all the plants in the garden grow
         """
@@ -109,7 +120,7 @@ class GardenStats:
     """
 
     @staticmethod
-    def total_plants(garden) -> int:
+    def total_plants(garden: Garden) -> int:
         """
         Counts total plants in given garden
         """
@@ -119,7 +130,7 @@ class GardenStats:
         return i
 
     @staticmethod
-    def total_growth(garden) -> int:
+    def total_growth(garden: Garden) -> int:
         """
         Sums height of all plants in given garden
         """
@@ -129,7 +140,7 @@ class GardenStats:
         return i
 
     @staticmethod
-    def plant_types(garden) -> Dict[str, int]:
+    def plant_types(garden: Garden) -> Dict[str, int]:
         """
         Gives quantity and type of plants in given garden:
         count = dictionary with exact name of plant types
@@ -141,7 +152,7 @@ class GardenStats:
         return counts
 
     @staticmethod
-    def garden_report(garden) -> None:
+    def garden_report(garden: Garden) -> None:
         print(f"=== {garden.owner}'s Garden Report ===")
         print("Plants in garden:")
         for plant in garden.plant_list:

@@ -4,11 +4,13 @@ class GardenError(Exception):
     """
     pass
 
+
 class PlantError(GardenError):
     """
     Error for problems with plants
     """
     pass
+
 
 class WaterError(GardenError):
     """
@@ -17,25 +19,35 @@ class WaterError(GardenError):
     pass
 
 
-def garden_error_demo() ->None:
+def test_plant_error(plant: str, status: str) -> None:
+    if status == "wilting":
+        raise PlantError(f"The {plant} is {status}")
+
+
+def test_water_error(amount: int) -> None:
+    if amount < 5:
+        raise WaterError("Not enought water in the tank")
+
+
+def garden_error_demo() -> None:
     print("=== Custom Garden Errors Demo ===\n")
     print("Testing PlantError...")
     try:
-        raise PlantError("The tomato plant is wilting")
+        test_plant_error("Tomato", "wilting")
     except PlantError as e:
         print(f"Caught PlantError: {e}\n")
     print("Testing WaterError...")
     try:
-        raise WaterError("Not enough water in the tank")
+        test_water_error(3)
     except WaterError as e:
         print(f"Caught WaterError: {e}\n")
     print("Testing catching all garden errors...")   
     try:
-        raise GardenError("The tomato plant is wilting")
+        test_plant_error("Tomato", "wilting")
     except GardenError as e:
         print(f"Caught a garden error: {e}")
     try:
-        raise GardenError("Not enough water in the tank")
+        test_water_error(3)
     except GardenError as e:
         print(f"Caught a garden error: {e}\n")
 

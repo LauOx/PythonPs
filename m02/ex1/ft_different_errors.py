@@ -11,7 +11,7 @@ def garden_operations(error_str: str) -> None:
     elif error_str == "key":
         dic = {"Oak": 1}
         return dic["rose"]
-    
+
 
 def test_error_types() -> None:
     """
@@ -37,11 +37,11 @@ def test_error_types() -> None:
     try:
         garden_operations("key")
     except KeyError:
-        print("Caught KeyError: 'missing\_plant'\n")
-    print("Testing KeyError...")
+        print("Caught KeyError: 'missing\\_plant'\n")
+    print("Testing multiple errors together...")
     try:
         garden_operations("key")
-        garden_operations("file")# Once "key" executes jumps directly to except.
+        garden_operations("file")  # Once "key" executes jumps directly to except.
         garden_operations("value")
     except (KeyError, FileNotFoundError, ValueError):
         print("Caught an error, but program continues!\n")

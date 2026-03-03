@@ -1,13 +1,14 @@
 class Plant:
-    """
-    Class to create plants
-    """
-    def __init__(self, name):
+    def __init__(self, name) -> None:
+        """
+        Inits Plant with name
+        """
         self.name = name
 
-def water_plants(plant_list: list) ->None:
+
+def water_plants(plant_list: list) -> None:
     """
-    function that activates the watering system
+    Function that activates the watering system
     """
     open = False
     if not open:
@@ -22,10 +23,12 @@ def water_plants(plant_list: list) ->None:
         open = False
         print("Closing watering system (cleanup)")
 
-def watering_test():
+
+def watering_test() -> None:
     """
     Function to test the watering system water_plants()
     """
+    print("=== Garden Watering System ===\n")
     tomato = Plant("tomato")
     lettuce = Plant("lettuce")
     carrots = Plant("carrots")

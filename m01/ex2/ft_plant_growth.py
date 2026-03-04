@@ -1,5 +1,8 @@
 class Plant:
-    def __init__(self, name: str, height: str, age: str):
+    def __init__(self, name: str, height: str, age: str) -> None:
+        """
+        Initializes plant object with name, height and age
+        """
         self.name = name
         self.height = height
         self.age = age
@@ -18,7 +21,7 @@ class Plant:
         print(f"{self.name}: {self.height}cm, {self.age} days old")
 
 
-def main():
+def main() -> None:
     """
     Run as main funcion
     """

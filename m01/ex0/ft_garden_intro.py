@@ -1,6 +1,6 @@
-def main():
+if __name__ == "__main__":
     """
-    Runs as main function
+    Runs when executed directly
     """
     name = "Rose"
     height = "25cm"
@@ -10,7 +10,3 @@ def main():
     print(f"Height: {height}")
     print(f"Age: {age}")
     print("\n=== End of Program ===")
-    
-
-if __name__ == "__main__":
-    main()

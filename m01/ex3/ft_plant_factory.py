@@ -1,5 +1,8 @@
 class Plant:
-    def __init__(self, name: str, height: int, age: int):
+    def __init__(self, name: str, height: int, age: int) -> None:
+        """
+        Initializes plant object with name, height and age
+        """
         self.name = name
         self.height = height
         self.age = age
@@ -11,7 +14,7 @@ class Plant:
         return f"created: {self.name} ({self.height}cm, {self.age} days)"
 
 
-def main():
+def main() -> None:
     """
     Runs as main function
     Here is where the object is created

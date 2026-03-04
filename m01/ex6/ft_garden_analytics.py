@@ -52,12 +52,15 @@ class PrizeFlower(FloweringPlant):
 
 
 class Garden:
-    def __init__(self, owner: str):
+    def __init__(self, owner: str) -> None:
+        """
+        Initializes Garden with owner
+        """
         self.owner = owner
         self.plant_list = []
         self.score = 0
 
-    def add_plant(self, plant: Plant):
+    def add_plant(self, plant: Plant) -> None:
         """
         Adds plant to the plant_list (with append)
         """
@@ -65,6 +68,12 @@ class Garden:
         self.score = self.sum_points()
 
     def sum_points(self) -> int:
+        """
+        Sums total points for garden given.
+        +10 for each plant
+        +height of each plant
+        +Prize fllower if it is bloomed
+        """
         total = 0
         for plant in self.plant_list:
             total += plant.height
@@ -76,12 +85,15 @@ class Garden:
         return total        # gives total if needed
 
     def update_score(self) -> int:
+        """
+        Update the score when there is a change
+        """
         self.score = self.sum_points()
         return self.score
 
 
 class GardenManager:
-    def __init__(self):
+    def __init__(self) -> None:
         """
         Initializes GardenManager
         """
@@ -156,6 +168,9 @@ class GardenStats:
 
     @staticmethod
     def garden_report(garden: Garden) -> None:
+        """
+        shows complete report for garden given
+        """
         print(f"=== {garden.owner}'s Garden Report ===")
         print("Plants in garden:")
         for plant in garden.plant_list:

@@ -1,12 +1,19 @@
 class Plant:
-    def __init__(self, name: str, height: int, age: int):
+    def __init__(self, name: str, height: int, age: int) -> None:
+        """
+        Initializes plant object with name, height and age
+        """
         self.name = name
         self.age = age
         self.height = height
 
 
 class Flower(Plant):
-    def __init__(self, name: str, age: int, height: int, color: str):
+    def __init__(self, name: str, age: int, height: int, color: str) -> None:
+        """
+        Initializes flower object with data inherited from Plant
+        plus color
+        """
         super().__init__(name, age, height)
         self.color = color
         self.is_bloom = False
@@ -22,7 +29,12 @@ class Flower(Plant):
 
 
 class Tree(Plant):
-    def __init__(self, name: str, age: int, height: int, trunk_diameter: int):
+    def __init__(self, name: str, age: int,
+                 height: int, trunk_diameter: int) -> None:
+        """
+        Initializes Tree object with data inherited from Plant
+        plus trunk_diameter
+        """
         super().__init__(name, age, height)
         self.trunk_diameter = trunk_diameter
         self.shade_produced = 0
@@ -38,6 +50,10 @@ class Tree(Plant):
 class Vegetable(Plant):
     def __init__(self, name: str, age: int, height: int, harvest_season: str,
                  nutritional_value: str) -> None:
+        """
+        Initializes vegetable object with data inherited from Plant
+        plus harvest_season and nutritional_value
+        """
         super().__init__(name, age, height)
         self.harvest_season = harvest_season
         self.nutritional_value = nutritional_value

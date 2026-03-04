@@ -1,5 +1,8 @@
 class SecurePlant:
-    def __init__(self, name: str, height: int, age: int):
+    def __init__(self, name: str, height: int, age: int) -> None:
+        """
+        Initializes plant object with name, height and age
+        """
         self.name = name
         self.__height = 0
         self.__age = 0
@@ -39,7 +42,7 @@ class SecurePlant:
         """
         return self.__height
 
-    def get_age(self):
+    def get_age(self) -> int:
         """
         Secure way to get to plant.age
         """
@@ -50,14 +53,18 @@ def main() -> None:
     """
     Runs as main function
     """
+    print("=== Garden Security System ===")
     Rose = SecurePlant("Rose", 25, 30)
     print(Rose.plant_created())
     Rose.set_height(25)
     Rose.set_age(30)
+    print()
+    Rose.set_height(-5)
+    print()
     print(f"Current plant: {Rose.name} ({Rose.get_height()}cm, "
           f"{Rose.get_age()} days)")
-    # print(f"Altura de {Rose.name}: {Rose.__age}") está escondido, solo se
-    # puede llamar con get.
+    # print(f"Altura de {Rose.name}: {Rose.__age}") is hidden
+    # its reacheable with 'get'.
 
 
 if __name__ == "__main__":

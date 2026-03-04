@@ -7,6 +7,16 @@ class Plant:
         self.age = age
         self.height = height
 
+    def info(self) -> str:
+        """
+        Gests info from plant
+        """
+        str = (
+            f"{self.name} ({type(self).__name__}), {self.height}cm, "
+            f"{self.age} days"
+            )
+        return str
+
 
 class Flower(Plant):
     def __init__(self, name: str, age: int, height: int, color: str) -> None:
@@ -27,6 +37,13 @@ class Flower(Plant):
             return f"{self.name} is blooming beautifully!"
         return f"{self.name} has already bloomed."
 
+    def info(self) -> str:
+        """
+        Gests info from flower
+        """
+        str = f"{super().info()} {self.color} color\n{self.bloom()}"
+        return str
+
 
 class Tree(Plant):
     def __init__(self, name: str, age: int,
@@ -46,6 +63,14 @@ class Tree(Plant):
         shade = round(self.trunk_diameter * 1.56)
         return f"{self.name} provides {shade} square meters of shade"
 
+    def info(self) -> str:
+        """
+        Gests info from tree
+        """
+        str = (f"{super().info()} {self.trunk_diameter}"
+        f"\n{self.produce_shade()}")
+        return str
+
 
 class Vegetable(Plant):
     def __init__(self, name: str, age: int, height: int, harvest_season: str,
@@ -58,6 +83,16 @@ class Vegetable(Plant):
         self.harvest_season = harvest_season
         self.nutritional_value = nutritional_value
 
+    def info(self) -> str:
+        """
+        Gests info from vegetable
+        """
+        str = (
+            f"{super().info()} {self.harvest_season}\n"
+            f"{self.name} is {self.nutritional_value}"
+            )
+        return str
+
 
 def main() -> None:
     """
@@ -67,15 +102,18 @@ def main() -> None:
     oak = Tree("Oak", 500, 1825, 50)
     tomato = Vegetable("Tomato", 80, 90, "summer", "rich in vitamin C")
     print("=== Garden Plant Types ===\n")
-    print(f"{rose.name} ({type(rose).__name__}), {rose.height}cm, "
-          f"{rose.age} days, {rose.color} color")
-    print(f"{rose.bloom()}\n")
-    print(f"{oak.name} ({type(oak).__name__}), {oak.height}cm, "
-          f"{oak.age} days, {oak.trunk_diameter}cm diameter")
-    print(f"{oak.produce_shade()}\n")
-    print(f"{tomato.name} ({type(tomato).__name__}), {tomato.height}cm, "
-          f"{tomato.age} days, {tomato.harvest_season} harvest")
-    print(f"Tomato is {tomato.nutritional_value}")
+    print(f"{rose.info()}\n")
+    # print(f"{rose.name} ({type(rose).__name__}), {rose.height}cm, "
+    #       f"{rose.age} days, {rose.color} color")
+    # print(f"{rose.bloom()}\n")
+    print(f"{oak.info()}\n")
+    # print(f"{oak.name} ({type(oak).__name__}), {oak.height}cm, "
+    #       f"{oak.age} days, {oak.trunk_diameter}cm diameter")
+    # print(f"{oak.produce_shade()}\n")
+    print(f"{tomato.info()}")
+    # print(f"{tomato.name} ({type(tomato).__name__}), {tomato.height}cm, "
+    #       f"{tomato.age} days, {tomato.harvest_season} harvest")
+    # print(f"Tomato is {tomato.nutritional_value}")
 
 
 if __name__ == "__main__":

@@ -23,6 +23,7 @@ def test_temperature_input() -> None:
     """"
     Tests the check_temperature function with various inputs.
     """
+    print("=== Garden Temperature Checker ===\n")
     print("Testing temperature: 25")
     check_temperature("25")
     print("Testing temperature: abc")

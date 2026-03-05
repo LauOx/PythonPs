@@ -1,8 +1,9 @@
 import sys
 
+
 def command_quest() -> None:
     """
-    
+    Shows program name and the aguments given by the user.
     """
     print("=== Command Quest ===")
     list_len = len(sys.argv)

@@ -66,20 +66,19 @@ class GardenManager:
         """
         Waters all plants in the garden
         """
-        open = False
-        if not open:
-            open = True
-        if garden.tank_level > lt:
-            print("Opening watering system")
-            for plant in garden.plant_list:
-                plant.water_level += lt
-                print(f"Watering {plant.name} - success")
-                garden.tank_level -= lt
-        else:
-            raise GardenError("Not enought water in the tank")
-        if open:
-            open = False
-        print("Closing watering system (cleanup)")
+        is_open = False
+        if not is_open:
+            is_open = True
+            if garden.tank_level > lt:
+                print("Opening watering system")
+                for plant in garden.plant_list:
+                    plant.water_level += lt
+                    print(f"Watering {plant.name} - success")
+                    garden.tank_level -= lt
+            else:
+                raise GardenError("Not enought water in the tank")
+        if is_open:
+            is_open = False
 
     @staticmethod
     def photosynthesis(plant_list: list, hr: int) -> int:
@@ -135,6 +134,8 @@ def test_garden_manager() -> None:
         GardenManager.water_plants(my_garden, 3)
     except GardenError as e:
         print(f"Caught GardenError: {e}")
+    finally:
+        print("Closing watering system (cleanup)")
     # doing photosynthesis
     GardenManager.photosynthesis(my_garden.plant_list, 3)
     # doing photosynthesis

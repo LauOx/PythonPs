@@ -41,7 +41,7 @@ def test_error_types() -> None:
     print("Testing multiple errors together...")
     try:
         garden_operations("key")
-        garden_operations("file")  # Jumps directly from 'Key' no 'except'
+        garden_operations("file")  # Jumps directly from 'Key' to 'except'
         garden_operations("value")
     except (KeyError, FileNotFoundError, ValueError):
         print("Caught an error, but program continues!\n")

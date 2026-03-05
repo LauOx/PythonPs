@@ -24,7 +24,7 @@ def test_plant_error(plant: str, status: str) -> None:
     Checks the plant status
     """
     if status == "wilting":
-        raise PlantError(f"The {plant} is {status}")
+        raise PlantError(f"The {plant} plant is {status}!")
 
 
 def test_water_error(amount: int) -> None:
@@ -32,7 +32,7 @@ def test_water_error(amount: int) -> None:
     Checks amount of water
     """
     if amount < 5:
-        raise WaterError("Not enought water in the tank")
+        raise WaterError("Not enough water in the tank")
 
 
 def garden_error_demo() -> None:

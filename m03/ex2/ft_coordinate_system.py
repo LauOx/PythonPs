@@ -36,7 +36,7 @@ def compute_distance(arguments: str) -> None:
     print(f"Coordinates at X={x2}, Y={y2}, Z={z2}")
 
 
-def coordinate_system():
+def coordinate_system() -> None:
     """
     """
     print("=== Game Coordinate System ===\n")

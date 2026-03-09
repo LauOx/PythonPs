@@ -8,19 +8,20 @@ def achievement_tracker() -> None:
             'level_10',
             'treasure_hunter',
             'speed_demon'
-                        }
+            }
     bob = {
-            'first_kill',
-            'level_10',
-            'boss_slayer',
-            'collector'
-                        }
+           'first_kill',
+           'level_10',
+           'boss_slayer',
+           'collector'
+           }
     charlie = {
-        'level_10',
-        'treasure_hunter',
-        'boss_slayer',
-        'speed_demon',
-        'perfectionist'}
+               'level_10',
+               'treasure_hunter',
+               'boss_slayer',
+               'speed_demon',
+               'perfectionist'
+               }
     # Set operations
     achievement_list = alice.union(bob, charlie)
     common_achievements = alice.intersection(bob, charlie)

@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 def achievement_tracker() -> None:
     """
     Shows simple achievement analysis using sets operations

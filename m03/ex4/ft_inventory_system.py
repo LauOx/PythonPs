@@ -8,7 +8,7 @@ class InventoryError(Exception):
 
 
 class QuantityError(InventoryError):
-    """voy a usar este error para que no se puedan meter más de 5 elementos en el inventario"""
+    """simple quantity error"""
     pass
 
 
@@ -35,6 +35,8 @@ def arg_parsing(inventory_list: list) -> dict[str, int]:
     """
     """
     inv_dic = dict()
+    key = ""
+    quantity = 0
     for item in inventory_list:
         i = 0
         while i < len(item) and item[i] != ':':
@@ -47,6 +49,20 @@ def arg_parsing(inventory_list: list) -> dict[str, int]:
             print(f"Caught QuantityError: {e}")
         inv_dic.update({key: quantity})
     return inv_dic
+
+
+def nested_dict(inventory: dict) -> dict[dict, dict]:
+    """
+    Categorizes items using nested dictionaries
+    """
+    nested_dict = {
+        "moderate": {},
+        "scarce": {}
+    }
+    for item, quantity in inventory.items():
+        category = "moderate" if quantity >= 4 else "scarce"
+        nested_dict[category].update({item: quantity})
+    return nested_dict
 
 
 def inventory_system() -> None:
@@ -88,16 +104,10 @@ def inventory_system() -> None:
             min_value = units
     print(f"Least abundant: {min_key} ({min_value} units)")
     # Item categories
+    categories_dict = nested_dict(inventory)
     print("\n== Item Category ===")
-    moderate = dict()
-    scarce = dict()
-    for item, quantity in inventory.items():
-        if quantity >= 4:
-            moderate.update({item: quantity})
-        else:
-            scarce.update({item: quantity})
-    print(f"Moderate: {moderate}")
-    print(f"Scarce: {scarce}")
+    print(f"Moderate:, {categories_dict['moderate']}")
+    print(f"Scarce: , {categories_dict['scarce']}")
     # Management sugestions
     print("\n=== Management Suggestions ===")
     restock_sugest = ""
@@ -108,7 +118,7 @@ def inventory_system() -> None:
             else:
                 restock_sugest = restock_sugest + ", " + item
     print(f"Restock needed: {restock_sugest}")
-    # Dictionary properties demo 
+    # Dictionary properties demo
     print("\n === Dictionary Properties Demo ===")
     print("Dictionary keys:", end=" ")
     print(*inventory.keys(), sep=", ")

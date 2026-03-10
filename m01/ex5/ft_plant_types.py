@@ -68,7 +68,7 @@ class Tree(Plant):
         Gests info from tree
         """
         str = (f"{super().info()} {self.trunk_diameter}"
-        f"\n{self.produce_shade()}")
+               f"\n{self.produce_shade()}")
         return str
 
 

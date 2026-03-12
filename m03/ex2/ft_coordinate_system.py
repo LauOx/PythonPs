@@ -37,14 +37,27 @@ def compute_distance(arguments: str) -> None:
     print(f"Coordinates at X={x2}, Y={y2}, Z={z2}")
 
 
+def manual_coordinates() -> list:
+    """
+    This function gives coordinates as an example
+    if coordinates were not given.
+    """
+    manual_coor = [10, 20, 5]
+    return manual_coor
+
+
 def coordinate_system() -> None:
     """
+    This function reads coordinates from terminal (or from manual_coordinates())
+    and checks all posible erros before computing with compute_distance()
     """
     print("=== Game Coordinate System ===\n")
     ar_len = len(sys.argv)
     error_tracker = False
     # define parsing if arg entered as "str" and checks errors
-    if ar_len == 2:
+    if ar_len == 1:
+        arguments = manual_coordinates()
+    elif ar_len == 2:
         arguments = sys.argv[1].split()
         try:
             check_arg_len(arguments)
@@ -52,7 +65,7 @@ def coordinate_system() -> None:
             error_tracker = True
             print(f"Caught ValueError: {e}")
     # define parsing if entered 3 values
-    elif len(sys.argv) == 4:
+    elif ar_len == 4:
         arguments = sys.argv[1:]
     # raise error and if number of arguments is incorrect
     else:

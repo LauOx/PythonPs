@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 import sys
+from typing import Dict
 
 
 class InventoryError(Exception):
@@ -31,7 +32,7 @@ def get_quantity(item: str, number: str) -> int:
     return quantity
 
 
-def arg_parsing(inventory_list: list) -> dict[str, int]:
+def arg_parsing(inventory_list: list) -> Dict[str, int]:
     """
     """
     inv_dic = dict()
@@ -51,7 +52,7 @@ def arg_parsing(inventory_list: list) -> dict[str, int]:
     return inv_dic
 
 
-def nested_dict(inventory: dict) -> dict[dict, dict]:
+def nested_dict(inventory: dict) -> Dict[dict, dict]:
     """
     Categorizes items using nested dictionaries
     """

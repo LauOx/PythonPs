@@ -111,38 +111,16 @@ def analytics_dashboard(data: dict) -> None:
         'low': low
     }
     player_scores = {player: info['score'] for player, info in data.items()}
-    achievement_count = dict()
-    for player, info in data.items():
-        # all name and score
-        player_scores[player] = info['score']
-        # score categories
-        if info['score'] < 300:
-            low += 1
-            scores_categories['low'] = low
-        elif info['score'] > 1000:
-            high += 1
-            scores_categories['high'] = high
-        else:
-            medium += 1
-            scores_categories['medium'] = medium
-        # achievement count
-        ach_count = 0
-        for _ in info['achievements']:
-            ach_count += 1
-        achievement_count[player] = ach_count  
+    achievement_count = {player: len(info['achievements'])
+                         for player, info in data.items()} 
     print(f"Player scores: {player_scores}")
     print(f"Score categories: {scores_categories}")
     print(f"Achievement counts: {achievement_count}")
     # sets comprehension
     print("\n=== Sets Comprehension Examples ===")
-    unique_players = set()
-    unique_achievements = set()
-    # unique players
-    for player in data.keys():
-        unique_players |= {player}
-    # unique achievements
-    for info in data.values():
-        unique_achievements |= set(info['achievements'])
+    unique_players = {player for player in data.keys()}
+    unique_achievements = {achievement for info in data.values()
+                           for achievement in info['achievements']}
     print(f"Unique players: {unique_players}")
     print(f"Unique achievements: {unique_achievements}")
     # combined analysis

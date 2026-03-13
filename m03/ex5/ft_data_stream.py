@@ -114,6 +114,7 @@ def generator_demo() -> None:
 
 def game_data_stream(game_events: int):
     """
+    shows and analyses game data
     """
     count = 0
     event_id = 1

@@ -1,4 +1,4 @@
-def data_generator(n_players: int):
+def data_generator(n_players: int) -> dict[str, dict]:
     """
     Generates different combination of data
     to use in the analythics_dashboard()
@@ -62,38 +62,55 @@ def data_generator(n_players: int):
 
 def analytics_dashboard(data: dict) -> None:
     """
+    shows analytcs using list, dict and sets
     """
     print("=== Game Analytics Dashboard ===\n")
     # list comprehesion
     print("=== List Comprehension Examples ===")
-    name_high_scores = []
-    scores = []
-    active_players = []
-    for player, info in data.items():
-        # scores / s doubled
-        scores += [info['score']]
-        if info['score'] > 1000:
-            name_high_scores += [player]
-        # active players
-        if info['active']:
-            active_players += [player]
-    scores_doubled = []
-    for n in scores:
-        scores_doubled += [n * 2]
+    name_high_scores = [
+        player for player, info in data.items()
+        if info['score'] > 999
+        ]
+    active_players = [
+        player for player, info in data.items()
+        if info['active'] is True
+        ]
+    scores = [
+        info['score'] for player, info in data.items()
+        ]
+    scores_doubled = [n * 2 for n in scores]
+    # print(f"pueba aqui va scores: {scores}")
+    # print(f"pueba aqui va scores * 2: {scores_doubled}")
+    # print(f"pueba aqui van los nombres de los mas altos: {name_high_scores}")
+    # print(f"pueba aqui van los usuarios activos: {active_players}")
+    # active_players = []
+    # for player, info in data.items():
+    #     # scores / s doubled
+    #     scores += [info['score']]
+    #     if info['score'] > 1000:
+    #         name_high_scores += [player]
+    #     # active players
+    #     if info['active']:
+    #         active_players += [player]
+    # scores_doubled = []
+    # for n in scores:
+    #     scores_doubled += [n * 2]
     print(f"High scorers (>1000): {name_high_scores}")
     print(f"Scores doubled: {scores_doubled}")
     print(f"Active players: {active_players}")
     # dict comprehension
     print("\n=== Dict Comprehension Examples ===")
     player_scores = dict()
-    high = 0
-    medium = 0
-    low = 0
+    high = sum(1 for player, info in data.items() if info['score'] > 999)
+    medium = sum(1 for player, info in data.items()
+                 if 900 > info['score'] > 300)
+    low = sum(1 for player, info in data.items() if info['score'] < 300)
     scores_categories = {
         'high': high,
         'medium': medium,
         'low': low
     }
+    player_scores = {player: info['score'] for player, info in data.items()}
     achievement_count = dict()
     for player, info in data.items():
         # all name and score
@@ -142,9 +159,8 @@ def analytics_dashboard(data: dict) -> None:
             break
 
 
-
 if __name__ == "__main__":
     data = data_generator(2)
-    # for player in data.items():
-    #     print(player)
+    for player in data.items():
+        print(player)
     analytics_dashboard(data)

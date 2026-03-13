@@ -1,20 +1,21 @@
 #!/usr/bin/env python3
 import sys
-from typing import Dict
 
 
 class InventoryError(Exception):
-    """"""
+    """General inventory error"""
     pass
 
 
 class QuantityError(InventoryError):
-    """simple quantity error"""
+    """Simple quantity error"""
     pass
 
 
 def get_quantity(item: str, number: str) -> int:
     """
+    Manual atoi, max number 5 to get value of every item
+    in the inventory recieved
     """
     if number == '1':
         quantity = 1
@@ -32,8 +33,10 @@ def get_quantity(item: str, number: str) -> int:
     return quantity
 
 
-def arg_parsing(inventory_list: list) -> Dict[str, int]:
+def arg_parsing(inventory_list: list) -> dict[str, int]:
     """
+    gets arguments from terminal and convert them in dictionary
+    key: value
     """
     inv_dic = dict()
     key = ""
@@ -52,7 +55,7 @@ def arg_parsing(inventory_list: list) -> Dict[str, int]:
     return inv_dic
 
 
-def nested_dict(inventory: dict) -> Dict[dict, dict]:
+def nested_dict(inventory: dict) -> dict[dict, dict]:
     """
     Categorizes items using nested dictionaries
     """
@@ -66,8 +69,10 @@ def nested_dict(inventory: dict) -> Dict[dict, dict]:
     return nested_dict
 
 
-def inventory_system() -> None:
-    """"""
+def inventory_system(arguments: list) -> None:
+    """
+    Analyses all items in the inventory given
+    """
     inventory = dict()
     inventory = arg_parsing(sys.argv[1:])
     total = 0

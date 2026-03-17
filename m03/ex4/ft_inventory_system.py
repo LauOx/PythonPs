@@ -69,7 +69,7 @@ def nested_dict(inventory: dict) -> dict[dict, dict]:
     return nested_dict
 
 
-def inventory_system(arguments: list) -> None:
+def inventory_system() -> None:
     """
     Analyses all items in the inventory given
     """

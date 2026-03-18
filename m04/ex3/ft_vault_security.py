@@ -13,21 +13,13 @@ def vault_protocol() -> None:
             print("Vault connection established with failsafe protocols")
             print("\nSECURE EXTRACTION:")
             extraction = file.read()
-            line = ""
-            for c in extraction:
-                if c != '\n':
-                    line += c
-                else:
-                    print(f"[CLASSIFIED] {line}")
-                    line = ""
-            if line != "":
-                print(f"[CLASSIFIED] {line}")
+            print(extraction)
         # preservation
         with open(file_name, 'w') as file:
             print("\nSECURE PRESERVATION:")
-            preservation = "New security protocols archived"
+            preservation = "[CLASSIFIED] New security protocols archived"
             file.write(preservation)
-            print(f"[CLASSIFIED] {preservation}")
+            print(preservation)
     except FileNotFoundError:
         print(f"ERROR: {file_name} doesn't exist")
     finally:

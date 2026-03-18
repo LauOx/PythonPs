@@ -2,24 +2,6 @@
 from typing import Generator
 
 
-# def stream_from_file(filename: str) -> Generator[dict, None, None]:
-#     """
-#     read a file and yields every event
-#     """    
-#     with open(filename, 'r') as file:
-#         for line in file:
-#             # Quitamos espacios y dividimos por la coma
-#             parts = line.strip().split(',')   
-#             # Verificamos que la línea tenga datos (evita errores con líneas vacías)
-#             if len(parts) == 4:
-#                 yield {
-#                     'id': int(parts[0]),
-#                     'player': parts[1],
-#                     'action': parts[2],
-#                     'level': int(parts[3])
-#                 }
-
-
 def event_yield(n: int) -> Generator[dict, None, None]:
     """
     Random event generator because they wont let us use random()
@@ -33,7 +15,7 @@ def event_yield(n: int) -> Generator[dict, None, None]:
     for i in range(1, n + 1):
         # In the list we get the player with the index (module i % players).
         player = players[i % num_players]
-        action = actions[i % num_actions]  
+        action = actions[i % num_actions]
         # Invented level based on i (just because) max 15
         level = (i * 5) % 2000
         yield {
@@ -124,7 +106,6 @@ def game_data_stream(game_events: int):
     print(f"Processing {game_events} game events...")
     # showing n game events
     event = event_yield(game_events)
-    # event = stream_from_file("events.txt") // if data were given in a file
     i = 0
     for _ in range(game_events):
         e = next(event)
@@ -156,4 +137,3 @@ if __name__ == "__main__":
     game_data_stream(10)
     print()
     generator_demo()
-    # stream_from_file("events.txt")

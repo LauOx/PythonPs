@@ -25,7 +25,7 @@ def create_file(data: list) -> None:
         error = False
     except FileExistsError:
         print(f"\nERROR: The file {new_file} already exist.")
-        error = True     
+        error = True
     if not error:
         print(f"Archive '{new_file}' ready for long-term preservation.")
     elif error:

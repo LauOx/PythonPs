@@ -1,8 +1,10 @@
 #!/usr/bin/python3
 import sys
 
-def stream_check() ->None:
+
+def stream_check() -> None:
     """
+    checks info output
     """
     print("=== CYBER ARCHIVES - COMMUNICATION SYSTEM ===\n")
     # input check
@@ -17,6 +19,5 @@ def stream_check() ->None:
     print("Three-channel communication test successful.")
 
 
-
-if __name__=="__main__":
+if __name__ == "__main__":
     stream_check()

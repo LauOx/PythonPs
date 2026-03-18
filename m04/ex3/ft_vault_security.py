@@ -30,7 +30,7 @@ def vault_protocol() -> None:
             print(f"[CLASSIFIED] {preservation}")
     except FileNotFoundError:
         print(f"ERROR: {file_name} doesn't exist")
-    finally: 
+    finally:
         print("Vault automatically sealed upon completion")
     print("\nAll vault operations completed with maximum security.")
 

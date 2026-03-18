@@ -1,7 +1,8 @@
 #!/usr/bin/python3
 
-def crisis_response() ->None:
+def crisis_response() -> None:
     """
+    checks different open operations
     """
     print("=== CYBER ARCHIVES - CRISIS RESPONSE SYSTEM ===\n")
     # lost archive crisis
@@ -10,18 +11,21 @@ def crisis_response() ->None:
         with open('lost_archive.txt') as file:
             print(file.read())
     except FileNotFoundError:
-        print("STATUS: Archive not found in storage matrix")
+        print("RESPONSE: Archive not found in storage matrix")
         print("STATUS: Crisis handled, system stable")
     # permission crisis
-    print("CRISIS ALERT: Attempting access to 'classified_vault.txt'...")
+    print("\nCRISIS ALERT: Attempting access to ''classified_vault.txt'...")
     try:
         with open('classified_vault.txt') as file:
             file.write('hello')
+    except FileNotFoundError:
+        print("RESPONSE: Archive not found in storage matrix")
+        print("STATUS: Crisis handled, security maintained")
     except PermissionError:
         print("RESPONSE: Security protocols deny access")
-        print("STATUS: Crisis handled, security maintained")    
+        print("STATUS: Crisis handled, security maintained")
     # standar archive
-    print("ROUTINE ACCESS: Attempting access to 'standard_archive.txt'...")
+    print("\nROUTINE ACCESS: Attempting access to 'standard_archive.txt'...")
     try:
         with open('standard_archive.txt') as file:
             content = file.read()
@@ -30,10 +34,8 @@ def crisis_response() ->None:
     except FileNotFoundError:
         print("STATUS: Archive not found in storage matrix")
         print("STATUS: Crisis handled, system stable")
-
-
-FALTA VERIFICAR SI EL DE ARCHIVO SIN PERMISO O CORRUPTO SIRVE Y VERIFICAR SI
-PUEDO USAR BLOQUE FINALLY PARA LOS 3 TRY
+    # end message
+    print("\nAll crisis scenarios handled successfully. Archives secure.")
 
 
 if __name__ == "__main__":

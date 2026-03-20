@@ -1,8 +1,7 @@
+from parse_script import parse_config, ConfigFormat
 import random
 from collections import deque
 from typing import Optional, Tuple, List, Dict
-import matplotlib.pyplot as plt
-import numpy as np
 
 # ---------------------
 # Clase para cada celda
@@ -32,14 +31,15 @@ class Maze:
     DIR_DELTA = {'N': (0, -1), 'S': (0, 1), 'E': (1, 0), 'W': (-1, 0)}
     DIR_CHAR = {'N': 'N', 'S': 'S', 'E': 'E', 'W': 'W'}
 
-    def __init__(self, width: int, height: int, seed: int = None):
-        self.width = width
-        self.height = height
-        self.grid = [[Cell(x, y) for y in range(height)] for x in range(width)]
-        self.entry = (0, 0)
-        self.exit_ = (width-1, height-1)
-        self.seed = seed
-        self._generate_maze()
+    def __init__(self, data: ConfigFormat):
+        self.width: int = data['width']
+        self.height: int = data['height']
+        self.entry_xy: tuple[int, int] = data['entry']
+        self.exit_xy: tuple[int, int] = data['exit']
+        self.perfect: bool = data['perfect']
+        self.out_file: str = data['output_file']
+        self.seed: Optional[int] = data.get('seed')
+        self.grid = [[Cell(x, y) for y in range(self.height)] for x in range(self.width)]
 
     def _remove_wall(self, c1: Cell, c2: Cell):
         if c2.x == c1.x + 1:
@@ -90,12 +90,12 @@ class Maze:
     # Resolver laberinto con BFS
     # ---------------------
     def solve(self) -> List[str]:
-        queue: deque[Tuple[int, int]] = deque([self.entry])
-        came: Dict[Tuple[int,int], Optional[Tuple[Tuple[int,int], str]]] = {self.entry: None}
+        queue: deque[Tuple[int, int]] = deque([self.entry_xy])
+        came: Dict[Tuple[int,int], Optional[Tuple[Tuple[int,int], str]]] = {self.entry_xy: None}
 
         while queue:
             cx, cy = queue.popleft()
-            if (cx, cy) == self.exit_:
+            if (cx, cy) == self.exit_xy:
                 break
             for d, (dx, dy) in self.DIR_DELTA.items():
                 nx, ny = cx + dx, cy + dy
@@ -106,11 +106,11 @@ class Maze:
                     came[(nx, ny)] = ((cx, cy), d)
                     queue.append((nx, ny))
 
-        if self.exit_ not in came:
+        if self.exit_xy not in came:
             return []
 
         path: List[str] = []
-        pos = self.exit_
+        pos = self.exit_xy
         while came[pos] is not None:
             info = came[pos]
             path.append(info[1])
@@ -120,7 +120,9 @@ class Maze:
 # ---------------------
 # Uso del laberinto
 # ---------------------
-maze = Maze(10,10, seed=42)  # semilla fija para reproducibilidad
+
+data = parse_config("config.txt")
+maze = Maze(data)  # semilla fija para reproducibilidad
 maze.print_maze()
-solution = maze.solve()
-print("Camino más corto:", solution)
+#solution = maze.solve()
+#print("Camino más corto:", solution)

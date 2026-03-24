@@ -1,0 +1,32 @@
+#!/usr/bin/python3
+
+def vault_protocol() -> None:
+    """
+    checks vault security protocol
+    """
+    print("=== CYBER ARCHIVES - VAULT SECURITY SYSTEM ===\n")
+    file_name = "security_protocols.txt"
+    print("Initiating secure vault access...")
+    try:
+        # extraction
+        with open(file_name, 'r') as file:
+            print("Vault connection established with failsafe protocols")
+            print("\nSECURE EXTRACTION:")
+            extraction = file.read()
+            print(extraction)
+        # preservation
+        with open(file_name, 'w') as file:
+            print("\nSECURE PRESERVATION:")
+            preservation = "[CLASSIFIED] New security protocols archived"
+            file.write(preservation)
+            print(preservation)
+    except FileNotFoundError:
+        print(f"ERROR: {file_name} doesn't exist")
+    finally:
+        print("Vault automatically sealed upon completion")
+    print("\nAll vault operations completed with maximum security.")
+    # print(file.closed)
+
+
+if __name__ == "__main__":
+    vault_protocol()

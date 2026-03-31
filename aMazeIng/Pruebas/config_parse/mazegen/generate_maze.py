@@ -3,6 +3,24 @@ import random
 from collections import deque
 from typing import Optional, Tuple, List, Dict
 
+# Estilos
+COLOR_PALETTE = [
+    # 0: bg,           1: path,          2: font,          3: p42,          4: ec
+    ["\033[48;5;55m", "\033[48;5;177m", "\033[38;5;177m", "\033[48;5;99m", "\033[0m"]
+]
+RESET = "\033[0m"
+NEGRITA = "\033[1m"
+
+# Colores de texto
+ROJO = "\033[31m"
+VERDE = "\033[32m"
+AZUL = "\033[34m"
+AMARILLO = "\033[33m"
+COLOR = "\033[48;5;56m"
+
+# Colores de fondo (útil para muros)
+FONDO_BLANCO = "\033[47m"
+
 # class Cell and methods
 class Cell:
     def __init__(self, x, y):
@@ -45,6 +63,27 @@ class Maze:
         self.seed: Optional[int] = data.get('seed')
         self.grid = [[Cell(x, y) for y in range(self.height)]
                      for x in range(self.width)]
+        
+    def _block_42_pattern(self):
+        """
+        blocks 42 pattern cells
+        """
+        pattern = [
+            [1, 0, 1, 0, 1, 1, 1],
+            [1, 0, 1, 0, 0, 0, 1],
+            [1, 1, 1, 0, 1, 1, 1],
+            [0, 0, 1, 0, 1, 0, 0],
+            [0, 0, 1, 0, 1, 1, 1]
+        ]
+        ox = (self.width - 7) // 2
+        oy = (self.height - 5) // 2
+        
+        cells_to_block = set()
+        for r in range(5):
+            for c in range(7):
+                if pattern[r][c] == 1:
+                    cells_to_block.add((ox + c, oy + r))
+        return cells_to_block                                                  
 
     def _remove_wall(self, c1: Cell, c2: Cell):
         """
@@ -71,9 +110,13 @@ class Maze:
             c2.walls["S"] = False
 
     def _generate_maze(self):
+        pattern_42 = self._block_42_pattern()
         walls = []
         for x in range(self.width):
             for y in range(self.height):
+                # if the cell is in 42 pattern
+                if (x, y) in pattern_42:
+                    continue
                 if x < self.width - 1:
                     walls.append((self.grid[x][y], self.grid[x+1][y]))
                 if y < self.height - 1:
@@ -84,25 +127,42 @@ class Maze:
         random.shuffle(walls)
 
         for c1, c2 in walls:
-            if c1.find() != c2.find():
-                self._remove_wall(c1, c2)
-                c1.union(c2)
+            p_42 = False
+            if (c1.x, c1.y) in pattern_42:
+                p_42 = True
+            elif (c2.x, c2.y) in pattern_42:
+                p_42 = True
+            if not p_42:
+                if c1.find() != c2.find():
+                    self._remove_wall(c1, c2)
+                    c1.union(c2)
 
     # print maze
     def print_maze(self):
+        pattern_42 = self._block_42_pattern()
+        bg = COLOR_PALETTE[0][0]
+        ft = COLOR_PALETTE[0][3]
+        font = COLOR_PALETTE[0][2]
+        path = COLOR_PALETTE[0][1]
+        ec = COLOR_PALETTE[0][4]
+        r_style = bg + font
         self._generate_maze()
-        print(" " + "_ " * self.width)
+        print(r_style + " " + "_ " * self.width + ec)
         for y in range(self.height):
-            line = "|"
+            line = bg + font + "|" + ec
             for x in range(self.width):
                 cell = self.grid[x][y]
                 if (x, y) == self.entry_xy:
-                    line += "* "
+                    line += path + "* " + ec
                 elif (x, y) == self.exit_xy:
-                    line += "* "
+                    line += path + "* " + ec
                 else:
-                    line += "_" if cell.walls["S"] else " "
-                    line += "|" if cell.walls["E"] else " "
+                    if (x, y) in pattern_42:
+                        line += ft + "*" + ec
+                        line += ft + "|" + ec
+                    else:
+                        line += bg + font + "_" + ec if cell.walls["S"] else bg + font + " " + ec
+                        line += bg + font + "|" + ec if cell.walls["E"] else bg + font + " " + ec
             print(line)
 
     # Solve Maze using BFS
@@ -110,7 +170,6 @@ class Maze:
         explored: deque[Tuple[int, int]] = deque([self.entry_xy])
         origin: Dict[Tuple[int, int], Optional
                      [Tuple[Tuple[int, int], str]]] = {self.entry_xy: None}
-        print("solving")
         while explored:
             cx, cy = explored.popleft()
             if (cx, cy) == self.exit_xy:
@@ -145,7 +204,7 @@ class Maze:
         line = ""
         for y in range(self.height):
             line = ""
-            for x in range(self.width -1):
+            for x in range(self.width):
                 cell = self.grid[x][y]
                 value = 0
                 if cell.walls['N']:
@@ -167,12 +226,18 @@ class Maze:
         file = "maze.txt"
         solution = self.solve()
         hex_maze = self.hex_maze()
+        maze_entry = ",".join(str(i) for i in self.entry_xy)
+        maze_exit = ",".join(str(e) for e in self.exit_xy)
         try:
             with open(file, 'w') as f:
-                for str in hex_maze:
-                    line = str
+                for x_str in hex_maze:
+                    line = x_str
                     f.write(line)
                     f.write("\n")
+                f.write("\n")
+                f.write(maze_entry)
+                f.write("\n")
+                f.write(maze_exit)
                 f.write("\n")
                 for D in solution:
                     f.write(D)

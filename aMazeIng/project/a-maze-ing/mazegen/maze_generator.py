@@ -1,25 +1,8 @@
-from parse_script import parse_config, ConfigFormat
+from config.parser import parse_config, ConfigFormat
 import random
 from collections import deque
 from typing import Optional, Tuple, List, Dict
 
-# Estilos
-COLOR_PALETTE = [
-    # 0: bg,           1: path,          2: font,          3: p42,          4: ec
-    ["\033[48;5;55m", "\033[48;5;177m", "\033[38;5;177m", "\033[48;5;99m", "\033[0m"]
-]
-RESET = "\033[0m"
-NEGRITA = "\033[1m"
-
-# Colores de texto
-ROJO = "\033[31m"
-VERDE = "\033[32m"
-AZUL = "\033[34m"
-AMARILLO = "\033[33m"
-COLOR = "\033[48;5;56m"
-
-# Colores de fondo (útil para muros)
-FONDO_BLANCO = "\033[47m"
 
 # class Cell and methods
 class Cell:
@@ -69,9 +52,9 @@ class Maze:
         blocks 42 pattern cells
         """
         pattern = [
-            [1, 0, 1, 0, 1, 1, 1],
+            [1, 0, 0, 0, 1, 1, 0],
             [1, 0, 1, 0, 0, 0, 1],
-            [1, 1, 1, 0, 1, 1, 1],
+            [1, 1, 1, 0, 0, 1, 0],
             [0, 0, 1, 0, 1, 0, 0],
             [0, 0, 1, 0, 1, 1, 1]
         ]
@@ -136,34 +119,6 @@ class Maze:
                 if c1.find() != c2.find():
                     self._remove_wall(c1, c2)
                     c1.union(c2)
-
-    # print maze
-    def print_maze(self):
-        pattern_42 = self._block_42_pattern()
-        bg = COLOR_PALETTE[0][0]
-        ft = COLOR_PALETTE[0][3]
-        font = COLOR_PALETTE[0][2]
-        path = COLOR_PALETTE[0][1]
-        ec = COLOR_PALETTE[0][4]
-        r_style = bg + font
-        self._generate_maze()
-        print(r_style + " " + "_ " * self.width + ec)
-        for y in range(self.height):
-            line = bg + font + "|" + ec
-            for x in range(self.width):
-                cell = self.grid[x][y]
-                if (x, y) == self.entry_xy:
-                    line += path + "* " + ec
-                elif (x, y) == self.exit_xy:
-                    line += path + "* " + ec
-                else:
-                    if (x, y) in pattern_42:
-                        line += ft + "*" + ec
-                        line += ft + "|" + ec
-                    else:
-                        line += bg + font + "_" + ec if cell.walls["S"] else bg + font + " " + ec
-                        line += bg + font + "|" + ec if cell.walls["E"] else bg + font + " " + ec
-            print(line)
 
     # Solve Maze using BFS
     def solve(self) -> List[str]:

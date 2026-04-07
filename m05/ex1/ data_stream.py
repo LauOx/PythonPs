@@ -8,17 +8,16 @@ class DataProcessor(ABC):
     pass
 
     @abstractmethod
-    def validate(self, data: Any) -> bool:
+    def validate(self, data: typing.Any) -> bool:
         """"""
 
     @abstractmethod
-    def ingest(self, data: Any) -> None:
+    def ingest(self, data: typing.Any) -> None:
         """"""
 
-    def output(self) -> Tuple[int, str]:
+    def output(self) -> typing.Tuple[int, str]:
         """"""
         x = self.rank
-        self.remaining = self.added
         i = 0
         while i < len(self.data_stored) and self.data_stored[i] != ",":
             i += 1
@@ -38,7 +37,7 @@ class NumericProcessor(DataProcessor):
         self.added = 0
         self.remaining = 0
 
-    def validate(self, data: Any) -> bool:
+    def validate(self, data: typing.Any) -> bool:
         """"""
         value = False
         if isinstance(data, (int, float)):
@@ -48,7 +47,7 @@ class NumericProcessor(DataProcessor):
             return all(isinstance(d, (int, float)) for d in data)
         return value
 
-    def ingest(self, data: Union[int, float, List]) -> None:
+    def ingest(self, data: typing.Union[int, float, list]) -> None:
         """"""
         try:
             if self.validate(data):
@@ -80,7 +79,7 @@ class TextProcessor(DataProcessor):
         self.remaining = 0
         self.added = 0
 
-    def validate(self, data: Any) -> bool:
+    def validate(self, data: typing.Any) -> bool:
         """"""
         value = False
         if isinstance(data, (str)):
@@ -90,7 +89,7 @@ class TextProcessor(DataProcessor):
             return all(isinstance(d, (str)) for d in data)
         return value
     
-    def ingest(self, data: Union[str, List]) -> None:
+    def ingest(self, data: typing.Union[str, list]) -> None:
         """"""
         try:
             if self.validate(data):
@@ -115,14 +114,14 @@ class TextProcessor(DataProcessor):
 
 
 class LogProcessor(DataProcessor):
-    def __init__(self): 
+    def __init__(self):
         """"""
         self.data_stored = ""
         self.rank = 0
         self.remaining = 0
         self.added = 0
 
-    def validate(self, data: Any) -> bool:
+    def validate(self, data: typing.Any) -> bool:
         """"""
         value = False
         if isinstance(data, (typing.Dict)):
@@ -217,9 +216,9 @@ def main():
             {'log_level': 'INFO',
              'log_message': 'User wil isconnected'}
             ],
-         42,
-         ['Hi', 'five']
-         ]
+        42,
+        ['Hi', 'five']
+        ]
     data_stream = DataStream()
     # no processors
     print("Initialize Data Stream...")

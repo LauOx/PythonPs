@@ -16,7 +16,6 @@ class DataProcessor(ABC):
     def output(self) -> Tuple[int, str]:
         """"""
         x = self.rank
-        self.remaining = self.added
         i = 0
         while i < len(self.data_stored) and self.data_stored[i] != ",":
             i += 1
@@ -46,14 +45,19 @@ class NumericProcessor(DataProcessor):
             return all(isinstance(d, (int, float)) for d in data)
         return value
 
-    def ingest(self, data: Union[int, float, List]) -> None:
+    def ingest(self, data: Union[int, float, list]) -> None:
         """"""
         try:
             if self.validate(data):
                 if isinstance(data, (int, float)):
-                    self.data_stored += str(data)
-                    self.added += 1
-                    self.remaining += 1
+                    if not self.data_stored:
+                        self.data_stored += str(data)
+                        self.added += 1
+                        self.remaining += 1
+                    else:
+                        self.data_stored += ", " + str(data)
+                        self.added += 1
+                        self.remaining += 1
                 elif isinstance(data, list):
                     for d in data:
                         if not self.data_stored:
@@ -88,14 +92,19 @@ class TextProcessor(DataProcessor):
             return all(isinstance(d, (str)) for d in data)
         return value
     
-    def ingest(self, data: Union[str, List]) -> None:
+    def ingest(self, data: Union[str, list]) -> None:
         """"""
         try:
             if self.validate(data):
                 if isinstance(data, (str)):
-                    self.data_stored += data
-                    self.added += 1
-                    self.remaining += 1
+                    if not self.data_stored:
+                        self.data_stored += data
+                        self.added += 1
+                        self.remaining += 1
+                    else:
+                        self.data_stored += ", " + data
+                        self.added += 1
+                        self.remaining += 1
                 elif isinstance(data, list):
                     for d in data:
                         if not self.data_stored:
@@ -130,16 +139,23 @@ class LogProcessor(DataProcessor):
             return all(isinstance(d, (Dict)) for d in data)
         return value
     
-    def ingest(self, data: Union[Dict, List]) -> None:
+    def ingest(self, data: Union[Dict, list]) -> None:
         """"""
         try:
             if self.validate(data):
                 if isinstance(data, (Dict)):
-                    level = data['log_level']
-                    message = data["log_message"]
-                    self.data_stored += f"{level}: {message}"
-                    self.added += 1
-                    self.remaining += 1
+                    if not self.data_stored:
+                        level = data['log_level']
+                        message = data["log_message"]
+                        self.data_stored += f"{level}: {message}"
+                        self.added += 1
+                        self.remaining += 1
+                    else:
+                        level = data['log_level']
+                        message = data["log_message"]
+                        self.data_stored += f", {level}: {message}"
+                        self.added += 1
+                        self.remaining += 1
                 elif isinstance(data, list):
                     i = 0
                     for d in data:

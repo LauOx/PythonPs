@@ -159,7 +159,7 @@ class DataStream:
                     accepted = True
                     break
             if not accepted:
-                print("DataStreamError - "
+                print("DataStream error - "
                       f"Can't process element in stream: {d}")
 
     def print_processors_stats(self) -> None:
@@ -189,7 +189,7 @@ def main():
             {'log_level': 'WARNING',
              'log_message': 'Telnet access! Use ssh instead'},
             {'log_level': 'INFO',
-             'log_message': 'User wil isconnected'}
+             'log_message': 'User wil is connected'}
             ],
         42,
         ['Hi', 'five']

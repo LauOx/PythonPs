@@ -269,8 +269,9 @@ def main():
     # result after process
     data_stream.print_processors_stats()
     # second batch
-    print(f"\nSend another batch of data on stream: {second_batch}")
+    print(f"\nSend another batch of data: {second_batch}\n")
     data_stream.process_stream(second_batch)
+    data_stream.print_processors_stats()
     print("\nSend 5 processed data from each processor to a JSON plugin:")
     data_stream.output_pipeline(5, plug_json)
     # result after process

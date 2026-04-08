@@ -43,7 +43,8 @@ class NumericProcessor(DataProcessor):
         super().__init__()
 
     def validate(self, data: Any) -> bool:
-        """Validates if data can be processed (int, float or list of int and/or float)"""
+        """Validates if data can be processed
+        (int, float or list of int and/or float)"""
         value = False
         if isinstance(data, (int, float)):
             value = True
@@ -158,7 +159,7 @@ def main():
     try:
         numeric.ingest(foo)
     except InvalidDataError as e:
-        print(f"Got exception: {e}")
+        print(f" Got exception: {e}")
     # processing (ingest and output) validated data
     print(f" Processing data: {n_tester}")
     print(" Extracting 3 values...")
@@ -168,7 +169,7 @@ def main():
         print(f" Numeric value {n_out_x}: {n_out_y}")
     # text processor
     print("\nTesting Text Processor...")
-    print(f" Trying to validate input '42':", text.validate(bad_tester[0]))
+    print(" Trying to validate input '42':", text.validate(bad_tester[0]))
     print(f" Processing data: {t_tester}")
     try:
         text.ingest(t_tester)
@@ -180,7 +181,7 @@ def main():
     print(f" Text value {t_out_x}: {t_out_y}")
     # log processor
     print("\nTesting Log Processor...")
-    print(f" Trying to validate input 'Hello':", log.validate(bad_tester[1]))
+    print(" Trying to validate input 'Hello':", log.validate(bad_tester[1]))
     print(f" Processing data: {l_tester}")
     try:
         log.ingest(l_tester)

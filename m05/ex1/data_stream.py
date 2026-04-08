@@ -1,5 +1,8 @@
 #!/usr/bin/env python3
+# importar esto del futuro porque tengo python 8 y no permite typing.list[]
+from __future__ import annotations
 from abc import ABC, abstractmethod
+import typing
 from typing import Any, List, Tuple, Union, Dict
 
 
@@ -43,7 +46,8 @@ class NumericProcessor(DataProcessor):
         super().__init__()
 
     def validate(self, data: Any) -> bool:
-        """Validates if data can be processed (int, float or list of int and/or float)"""
+        """Validates if data can be processed
+        (int, float or list of int and/or float)"""
         value = False
         if isinstance(data, (int, float)):
             value = True
@@ -136,60 +140,90 @@ class LogProcessor(DataProcessor):
                 self.remaining += 1
 
 
+class DataStream:
+    def __init__(self) -> None:
+        self.processors: list[DataProcessor] = []
+
+    def register_processor(self, proc: DataProcessor) -> None:
+        """Appends new processor to the list self.processors"""
+        if proc not in self.processors:
+            self.processors.append(proc)
+
+    def process_stream(self, stream: list[typing.Any]) -> None:
+        """Recieves data and finds the correct DataProcessor to process it"""
+        for d in stream:
+            accepted = False
+            for proc in self.processors:
+                if proc.validate(d):
+                    proc.ingest(d)
+                    accepted = True
+                    break
+            if not accepted:
+                print("DataStreamError - "
+                      f"Can't process element in stream: {d}")
+
+    def print_processors_stats(self) -> None:
+        """Shows information about DataProcessors status in DataStream"""
+        print("== DataStream statistics ==")
+        if len(self.processors) == 0:
+            print("No processor found, no data")
+            return
+        else:
+            for proc in self.processors:
+                name = type(proc).__name__.replace("Processor", " Processor")
+                total = proc.added
+                remaining = proc.remaining
+                print(f"{name}: total {total} items processed, "
+                      f"remaining {remaining} on processor")
+
+
 def main():
     """main function"""
-    print("=== Code Nexus - Data Processor ===\n")
+    print("=== Code Nexus - Data Stream ===\n")
     numeric = NumericProcessor()
     text = TextProcessor()
     log = LogProcessor()
-    bad_tester = [42, "Hello"]
-    n_tester = [1, 2, 3, 4, 5]
-    foo = "foo"
-    t_tester = ['Hello', 'Nexus', 'World']
-    l_tester = [{'log_level': 'NOTICE', 'log_message': 'Connection to server'},
-                {'log_level': 'ERROR', 'log_message': 'Unauthorized access!!'}]
-    # numeric processor
-    print("Testing Numeric Processor...")
-    # validate data
-    for d in bad_tester:
-        print(f" Trying to validate input '{d}':", numeric.validate(d))
-    # ingest not validated data
-    print(" Test invalid ingestion of string 'foo' without prior validation:")
-    try:
-        numeric.ingest(foo)
-    except InvalidDataError as e:
-        print(f"Got exception: {e}")
-    # processing (ingest and output) validated data
-    print(f" Processing data: {n_tester}")
-    print(" Extracting 3 values...")
-    numeric.ingest(n_tester)
+    first_batch = [
+        'Hello world', [3.14, -1, 2.71],
+        [
+            {'log_level': 'WARNING',
+             'log_message': 'Telnet access! Use ssh instead'},
+            {'log_level': 'INFO',
+             'log_message': 'User wil isconnected'}
+            ],
+        42,
+        ['Hi', 'five']
+        ]
+    data_stream = DataStream()
+    # no processors
+    print("Initialize Data Stream...")
+    # no data
+    data_stream.print_processors_stats()
+    # Register 1 processor
+    print("\nRegistering Numeric Processor\n")
+    data_stream.register_processor(numeric)
+    # test with only numeric processor
+    print(f"Send first batch of data on stream: {first_batch}")
+    data_stream.process_stream(first_batch)
+    # stats
+    data_stream.print_processors_stats()
+    # register other processors
+    print("\nRegistering other data processors")
+    data_stream.register_processor(text)
+    data_stream.register_processor(log)
+    print("Send the same batch again")
+    data_stream.process_stream(first_batch)
+    data_stream.print_processors_stats()
+    # consume data
+    print("\nConsume some elements from the data processors:"
+          "Numeric 3, Text 2, Log 1")
     for _ in range(3):
-        n_out_x, n_out_y = numeric.output()
-        print(f" Numeric value {n_out_x}: {n_out_y}")
-    # text processor
-    print("\nTesting Text Processor...")
-    print(f" Trying to validate input '42':", text.validate(bad_tester[0]))
-    print(f" Processing data: {t_tester}")
-    try:
-        text.ingest(t_tester)
-    except InvalidDataError as e:
-        print(f"Got exception: {e}")
-    print(" Extracting 1 value...")
-    text.output
-    t_out_x, t_out_y = text.output()
-    print(f" Text value {t_out_x}: {t_out_y}")
-    # log processor
-    print("\nTesting Log Processor...")
-    print(f" Trying to validate input 'Hello':", log.validate(bad_tester[1]))
-    print(f" Processing data: {l_tester}")
-    try:
-        log.ingest(l_tester)
-    except InvalidDataError as e:
-        print(f"Got exception: {e}")
-    print(" Extracting 2 values...")
+        numeric.output()
     for _ in range(2):
-        l_out_x, l_out_y = log.output()
-        print(f" Log entry: {l_out_x}: {l_out_y}")
+        text.output()
+    for _ in range(1):
+        log.output()
+    data_stream.print_processors_stats()
 
 
 main()

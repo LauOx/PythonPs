@@ -2,9 +2,11 @@
 from elements import create_water
 
 
-def main():
+def alembic_1() -> None:
     """"""
-    print(create_water())
+    print("=== Alembic 1 ===")
+    print("Using: 'from ... import ...' structure to access elements.py")
+    print("Testing create_water:", create_water())
 
 
-main()
+alembic_1()

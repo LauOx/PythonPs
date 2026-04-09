@@ -1,10 +1,12 @@
 #!/usr/bin/env python3
-import alchemy
+import alchemy.elements
 
 
-def main():
+def alembic_2() -> None:
     """"""
-    print(alchemy.create_earth())
+    print("=== Alembic 2 ===")
+    print("Accessing alchemy/elements.py using 'import ...' structure")
+    print("Testing create_earth:", alchemy.elements.create_earth())
 
 
-main()
+alembic_2()

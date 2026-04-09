@@ -3,9 +3,11 @@
 import elements
 
 
-def main():
+def alembic_0() -> None:
     """"""
-    print(elements.create_fire())
+    print("=== Alembic 0 ===")
+    print("Using: 'import ...' structure to access elements.py")
+    print("Testing create_fire:", elements.create_fire())
 
 
-main()
+alembic_0()

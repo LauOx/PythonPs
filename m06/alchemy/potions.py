@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
-from alchemy.elements import create_air, create_earth
-import elements
+from .elements import create_air, create_earth
+from ..elements import create_fire, create_water
 
 
 def healing_potion() -> None:

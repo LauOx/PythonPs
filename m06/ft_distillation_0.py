@@ -1,13 +1,14 @@
 #!/usr/bin/env python3
 
-from alchemy import strength_potion
+from alchemy import strength_potion, healing_potion
 
 
 def distillation_0() -> None:
     """"""
     print("=== Distillation 0 ===")
     print("Direct access to alchemy/potions.py")
-    print("Testing strength_potion: ", strength_potion())
+    print("Testing strength_potion:", strength_potion())
+    print("Testing healing_potion:", healing_potion())
 
 
 distillation_0()

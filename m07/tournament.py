@@ -21,7 +21,7 @@ def battle(opponents: List[Tuple[CreatureFactory, BattleStrategy]]) -> None:
         for e in range(i + 1, len(opponents)):
             # extract tuples
             factory_1, strategy_1 = opponents[i]
-            factory_2, strategy_2 = opponents[e] 
+            factory_2, strategy_2 = opponents[e]
             # create creatures
             creature_1 = factory_1.create_base()
             creature_2 = factory_2.create_base()

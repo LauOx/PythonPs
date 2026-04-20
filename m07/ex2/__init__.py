@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 
-from battlestrategy import (
+from .battlestrategy import (
     BattleStrategy,
     NormalStrategy,
     AggressiveStrategy,

@@ -7,15 +7,13 @@ from .creature import Creature, Flameling, Pyrodon, Aquabub, Torragon
 class CreatureFactory(ABC):
     pass
 
+    @abstractmethod
+    def create_base(self) -> Creature:
+        pass
 
-@abstractmethod
-def create_base(creature_name: str) -> Creature:
-    pass
-
-
-@abstractmethod
-def create_evolved(creature_name: str) -> Creature:
-    pass
+    @abstractmethod
+    def create_evolved(self) -> Creature:
+        pass
 
 
 class FlameFactory(CreatureFactory):

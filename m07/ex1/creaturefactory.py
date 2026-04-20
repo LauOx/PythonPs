@@ -8,11 +8,11 @@ from .creature import Sproutling, Bloomelle, Shiftling, Morphagon
 class HealingCreatureFactory(CreatureFactory):
     pass
 
-    def create_base(creature_name: str) -> Creature:
+    def create_base(self) -> Creature:
         """"""
         return Sproutling()
 
-    def create_evolved(creature_name: str) -> Creature:
+    def create_evolved(self) -> Creature:
         """"""
         return Bloomelle()
 
@@ -20,10 +20,10 @@ class HealingCreatureFactory(CreatureFactory):
 class TransformCreatureFactory(CreatureFactory):
     pass
 
-    def create_base(creature_name: str) -> Creature:
+    def create_base(self) -> Creature:
         """"""
         return Shiftling()
 
-    def create_evolved(creature_name: str) -> Creature:
+    def create_evolved(self) -> Creature:
         """"""
         return Morphagon()

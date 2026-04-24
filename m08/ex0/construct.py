@@ -4,7 +4,8 @@ import sys
 import os
 import site
 
-def detect_environment()-> bool:
+
+def detect_environment() -> bool:
     """"""
     if os.getenv('VIRTUAL_ENV'):
         return True
@@ -26,7 +27,7 @@ def env_status() -> None:
         print("\nThen run this program again.")
     else:
         exe = sys.executable
-        e_path = os.getenv('VIRTUAL_ENV')
+        e_path = os.getenv('VIRTUAL_ENV') or ""
         v_env = os.path.basename(e_path)
         f_pack = site.getsitepackages()
         print("\nMATRIX STATUS: Welcome to the construct\n")
@@ -39,5 +40,5 @@ def env_status() -> None:
         print("Package installation path:", f_pack[0])
 
 
-
-env_status()
+if __name__ == "__main__":
+    env_status()

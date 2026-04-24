@@ -16,7 +16,7 @@ def testing_healing_factory(factory: HealingCreatureFactory) -> None:
     print(evolved_creature.describe())
     print(evolved_creature.attack())
     print(evolved_creature.heal())
-    print(evolved_creature.heal(base_creature))
+    print(evolved_creature.heal())
 
 
 def testing_transform_factory(factory: TransformCreatureFactory) -> None:

@@ -12,12 +12,9 @@ class Sproutling(Creature, HealCapability):
     def attack(self):
         return f"{self.name} uses Vine Whip!"
 
-    def heal(self, target=None) -> str:
+    def heal(self) -> str:
         """"""
-        if target:
-            return f"{self.name} heals {target.name} for a small amount"
-        else:
-            return f"{self.name} heals itself for a small amount"
+        return f"{self.name} heals itself for a small amount"
 
 
 class Bloomelle(Creature, HealCapability):
@@ -28,12 +25,9 @@ class Bloomelle(Creature, HealCapability):
     def attack(self):
         return f"{self.name}  uses Petal Dance!"
 
-    def heal(self, target=None) -> str:
+    def heal(self) -> str:
         """"""
-        if target:
-            return f"{self.name} heals {target.name} for a small amount"
-        else:
-            return f"{self.name} heals itself for a small amount"
+        return f"{self.name} heals itself for a small amount"
 
 
 class Shiftling(Creature, TransformCapability):

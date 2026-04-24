@@ -20,7 +20,7 @@ def env_status() -> None:
         print("WARNING: You're in the global environment! "
               "\nThe machines can see everything you install.\n")
         print("To enter the construct, run:\n"
-              "python -m venv matrix_env\n"
+              "python3 -m venv matrix_env\n"
               "source matrix_env/bin/activate # On Unix\n"
               r"matrix_env\Scripts\activate # On Windows")
         print("\nThen run this program again.")

@@ -1,14 +1,20 @@
-[tool.poetry]
-name = "loading-programs"
+[project]
+name = "loading-project"
 version = "0.1.0"
-description = "Data analysis tool for python module 08 ex1"
-authors = ["lospina- <lospina-@student.42madrid.com>"]
-readme = "README.md"
+description = "matrix data analysis tool for python m08"
+authors = [
+    {name = "lospina-",email = "lospina-@student.42madrid.com"}
+]
+requires-python = ">=3.10"
+dependencies = [
+    "pandas (==2.3.3)",
+    "numpy (==2.2.6)",
+    "matplotlib (>=3.10.9,<4.0.0)"
+]
 
-[tool.poetry.dependencies]
-python = "^3.8"
-
+[tool.poetry]
+packages = [{include = "\"loading"}]
 
 [build-system]
-requires = ["poetry-core"]
+requires = ["poetry-core>=2.0.0,<3.0.0"]
 build-backend = "poetry.core.masonry.api"

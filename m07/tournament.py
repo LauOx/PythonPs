@@ -43,7 +43,7 @@ def main() -> None:
     ]
     tournament_1 = [
         (FlameFactory(), AggressiveStrategy()),
-        (HealingCreatureFactory(), DefensiveStrategy),
+        (HealingCreatureFactory(), DefensiveStrategy()),
     ]
     tournament_2 = [
         (AquaFactory(), NormalStrategy()),

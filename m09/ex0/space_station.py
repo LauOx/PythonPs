@@ -61,6 +61,7 @@ def main():
             last_maintenance=datetime(2026, 4, 11, 13, 25, 59),
             is_operational=True
         )
+        print(not_valid_station)
     except ValidationError as e:
         error = e.errors()
         zero = error[0]
@@ -68,8 +69,5 @@ def main():
         print(f"{msg}")
 
 
-
-
 if __name__ == "__main__":
     main()
-
